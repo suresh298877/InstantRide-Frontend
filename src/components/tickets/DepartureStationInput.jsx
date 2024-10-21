@@ -5,11 +5,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function DepartureStationInput() {
+export default function DepartureStationInput({ data }) {
     const [options, setOptions] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [value, setValue] = React.useState(null)
     const [inputValue, setInputValue] = React.useState(null);
+    const [label, setLabel] = React.useState(data ? data.departure_station : "Enter Departure Station")
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +40,7 @@ export default function DepartureStationInput() {
             onInputChange={(event, newInputValue) => {
                 setInputValue(newInputValue);
             }}
-            sx={{ width: "50vw" }}
+            sx={{ width: "50%" }}
             className='mx-auto my-7'
             isOptionEqualToValue={(option, value) => option.title === value.title}
             getOptionLabel={(option) => `${option.stationName} - ${option.stationCode} - ${option.alias1}`}
@@ -47,9 +48,10 @@ export default function DepartureStationInput() {
             loading={loading}
             renderInput={(params) => (
                 <TextField
+                    onFocus={() => { setLabel("Enter Departure Station") }}
                     required
                     {...params}
-                    label="From"
+                    label={label}
                     name='departure_station'
                     slotProps={{
                         input: {

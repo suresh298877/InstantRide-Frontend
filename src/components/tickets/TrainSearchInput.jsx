@@ -5,11 +5,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function TrainSearch() {
+export default function TrainSearch({ data }) {
+    // console.log(data.train_name)
     const [options, setOptions] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
-    const [value, setValue] = React.useState(null)
+    const [value, setValue] = React.useState(null);
     const [inputValue, setInputValue] = React.useState(null);
+    const [label, setLabel] = React.useState(data ? data.train_name : "Enter train Name or Number")
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +30,9 @@ export default function TrainSearch() {
             fetchData();
         }
     }, [inputValue]);
+
+
+
     return (
         <Autocomplete
             popupIcon=<SearchIcon />
@@ -39,7 +44,7 @@ export default function TrainSearch() {
             onInputChange={(event, newInputValue) => {
                 setInputValue(newInputValue);
             }}
-            sx={{ width: "50vw" }}
+            sx={{ width: "50%" }}
             className='mx-auto'
             isOptionEqualToValue={(option, value) => option.title === value.title}
             getOptionLabel={(option) => `${option.trainName} - ${option.trainNo}`}
@@ -47,9 +52,10 @@ export default function TrainSearch() {
             loading={loading}
             renderInput={(params) => (
                 <TextField
+                    onFocus={() => { setLabel("Enter Train Name or Number") }}
                     required
                     {...params}
-                    label="Enter train number"
+                    label={label}
                     name='trainName'
                     slotProps={{
                         input: {

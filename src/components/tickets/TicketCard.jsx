@@ -1,11 +1,10 @@
 import { Box, Paper } from "@mui/material"
+import UpdateTicketForm from "./UpdateTicketForm";
 
-const TicketCard = ({ data }) => {
-
-    console.log(data);
+const TicketCard = ({ data, edit }) => {
     return <>
         <Box
-            className="w-full inline-block max-w-[70vw] mx-auto hover:opacity-50"
+            className="w-full inline-block max-w-[70vw] mx-auto"
             sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -32,7 +31,12 @@ const TicketCard = ({ data }) => {
                     </div>
                 </div>
                 <Box className="text-center mb-3 text-xl">{data.price}</Box>
+                {edit == "true" ? <div className="text-center mb-5">
+                    <UpdateTicketForm id={data.id} />
+                </div> : <></>}
+
             </Paper>
+
         </Box >
     </>
 }

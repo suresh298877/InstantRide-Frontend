@@ -12,6 +12,7 @@ import HeaderComponent from './components/general/HeaderComponent.jsx';
 import FooterComponent from './components/general/FooterComponent.jsx';
 import AddTicket, { addTicketAction } from './components/tickets/AddTicket.jsx';
 import ListTickets from './components/tickets/ListTickets.jsx';
+import ListMyTickets from './components/tickets/ListMyTickets.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
           },
           {
             path: "my-tickets/",
-            element: <></>
+            element: <ListMyTickets />
           }
         ]
       },
